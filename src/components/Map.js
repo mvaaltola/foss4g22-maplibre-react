@@ -1,6 +1,7 @@
 import maplibregl from "maplibre-gl";
 import { useEffect } from "react";
 import { useRefCallback } from "../hooks/useRefCallback";
+import "maplibre-gl/dist/maplibre-gl.css"
 
 
 function Map() {
@@ -18,9 +19,7 @@ function Map() {
     }, [containerRef]);
 
     return (
-        <>
-            <div ref={setContainerRef} />
-        </>
+        <div style={{height: "100vh"}} ref={setContainerRef} />
     )
 }
 
