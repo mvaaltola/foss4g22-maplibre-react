@@ -1,11 +1,14 @@
 import maplibregl from "maplibre-gl";
-import { useEffect } from "react";
+import { Children, cloneElement, useEffect } from "react";
 import { useRefCallback } from "../hooks/useRefCallback";
 import "maplibre-gl/dist/maplibre-gl.css"
 
+const MapInject = (children, map) =>
+    Children.map(children, (child) => cloneElement(child, { map }))
 
-function Map() {
+const Map = ({ children }) => {
     const [containerRef, setContainerRef] = useRefCallback();
+    const [mapRef, setMapRef] = useRefCallback();
 
     useEffect(() => {
         if (containerRef) {
@@ -19,7 +22,9 @@ function Map() {
     }, [containerRef]);
 
     return (
-        <div style={{height: "100vh"}} ref={setContainerRef} />
+        <div style={{height: "100vh"}} ref={setContainerRef}>
+            {MapInject(children, mapRef)}
+        </div>
     )
 }
 
